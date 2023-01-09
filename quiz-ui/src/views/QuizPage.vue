@@ -5,9 +5,7 @@
         <template v-for="(question, qIndex) in questions">
           <h3>{{ question.title }}</h3>
           <p>{{ question.text }}</p>
-          <!-- <template v-if="question.image">
-            <img v-bind:src="'data:image/jpeg;base64,' + question.image" />
-          </template> -->
+          <img :src="question.image" alt="Image"/>
           <template v-for="(answer, aIndex) in question.possibleAnswers">
             <label>
               <input type="radio" v-bind:value="answer.text" v-bind:name="'question-' + question.id"

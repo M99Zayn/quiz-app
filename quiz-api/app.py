@@ -1,46 +1,26 @@
 import sqlite3
 from flask import Flask, jsonify, request, abort
-import jwt
+from jwt_utils import build_token, decode_token,secret
 from flask_cors import CORS
 import os
 import json
 from operator import itemgetter
-from datetime import datetime , timedelta
-from functools import wraps
 
 currentdirectory = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '74ebc58d13224d0daa4989a8734133ea'
 
-def token_required(func):
-    @wraps(func)
-    def decorated(*args , **kwargs):
-        token = request.args.get('token')
-        if not token:
-           return jsonify({'Alert!':'Tocken is missing ! '})
-        try:
-            payload = jwt.decode(token,app.config['SECRET_KEY']) 
-        except:
-          return jsonify({'Alert!': 'Invalid Token!'})
-    return decorated
-
-@app.route('/login',methods=['POST'])
-def login():
-  if request.form['username'] and request.form['password'] == '123456':
-      session['logged_in'] = True 
-      token = jwt.encode({
-          'user':request.form['username'],
-          'expiration':str(datetime.utcnow() + timedelta(seconds=120))
-      },
-          app.config['SECRET_KEY'])
-      return jsonify({'token':token.decode('utf-8')})
-  else:
-    return make_response(' Password : Wrong ', 401 , {'WWW-Authenticate': 'Basic realm:"Authentification Failed !'})
-if __name__ == "__main__":
-    app.run(debug=True)
-
 CORS(app)
+
+@app.route('/login', methods=['POST'])
+def login():
+    payload = request.get_json()
+    if payload.get('password') == secret :
+        return  {"token" : build_token()} , 200
+
+    else:
+        return "Unauthorized", 401
 
 class Question():
 	def init(self, title: str, text, image, position, possibleAnswers):
@@ -81,6 +61,12 @@ def GetQuestion():
 
 @app.route('/questions', methods=['POST'])
 def AddQuestion():
+	# Récupérer le token envoyé en paramètre
+	auth_token = request.headers.get('Authorization')
+	try:
+		decode_token(auth_token[7:])
+	except TypeError:
+		return {"message" : "Not authenticated"} ,401
 	title = request.json['title']
 	text = request.json['text']
 	image = request.json['image']
