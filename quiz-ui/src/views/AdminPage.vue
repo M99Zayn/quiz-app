@@ -1,28 +1,38 @@
 <template>
-<div>
+<div style="margin:50px">
   <div>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Question</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="question in questions" :key="question.id">
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Question</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+ 
+    <tr v-for="question in questions" :key="question.id">
+
           <router-link :to="{name: 'QuestionPage', params:{id:question.id}}">
-            <td>{{ question.id }}</td>
-            <td>{{ question.text }}</td>
+            <td>{{ question.id }}</td> 
           </router-link>
-          <td>
-            <button @click="editQuestion(question.id)">Éditer</button>
-            <button @click="deleteQuestion(question.id)">Supprimer</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <button @click="addQuestion">Créer une question</button>
+    
+  
+            <td>{{ question.text }}</td>
+<tr>
+
+           <td><button class="btn btn-primary" @click="editQuestion(question.id)">Éditer</button></td> &nbsp&nbsp&nbsp
+          <td><button class="btn btn-danger" @click="deleteQuestion(question.id)">Supprimer</button></td>   
+         </tr> 
+         </tr>     
+     
+
+          
+  </tbody>
+</table>
+  
+
+    <button  @click="addQuestion" class="btn btn-success" to="/quiz-page">Créer une question</button>
   </div>
 </div>
 </template>

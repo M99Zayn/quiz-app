@@ -42,6 +42,8 @@ button {
 	background: none;
 }
 
+
+
 .app {
 	display: flex;
 
@@ -53,5 +55,8 @@ button {
 			padding-left: 6rem;
 		}
 	}
+
 }
+
+	
 </style>

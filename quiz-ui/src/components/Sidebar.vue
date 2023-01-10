@@ -11,20 +11,26 @@
 		</div>
 
 		<h3>Menu</h3>
-		<div class="menu">
+		<div class="menu"> <br>
 			<router-link to="/" class="button">
 				
-				<span class="text">Home</span>
+		
+	<span class="text">     <font-awesome-icon icon="fa-solid fa-user-secret" />Home</span>
 			</router-link>
+			<br>
 			
 			<router-link to="/admin" class="button">
 				
 				<span class="text">Admin</span>
 			</router-link>
 			
+
+
+			
 		</div>
 
 		<div class="flex"></div>
+		
 	</aside>
 </template>
 
