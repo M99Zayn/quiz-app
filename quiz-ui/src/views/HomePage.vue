@@ -7,7 +7,7 @@
     
     <div class="card" >
   <div class="card-body">
-    <h5 class="card-title" style="color:#056895">  Bienvenue sur Quiz F1</h5>
+    <h5 class="card-title" style="color:#056895">  Bienvenue sur Quiz</h5>
     <p class="card-text">Pour chaque question, une seule réponse est correcte. Une bonne réponse rapporte 1 point. <br> Une mauvaise réponse ne fait pas perdre de points</p>
     <router-link class="btn btn-primary" to="/quiz-page">Participer au quiz</router-link>
   </div>
