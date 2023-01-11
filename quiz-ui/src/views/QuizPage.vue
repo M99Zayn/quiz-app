@@ -1,25 +1,25 @@
 <template>
-  <div class="about">
-    <div>
-      <form v-if="showForm" @submit.prevent="onSubmit">
-        <template v-for="(question, qIndex) in questions">
-          <h3>{{ question.title }}</h3>
-          <p>{{ question.text }}</p>
-          <img :src="question.image" alt="Image"/>
+  <div class="about" >
+    <div style=" margin-top: 2%; margin-bottom: 2%;">
+      <form class="form-control" style=" margin-left: 20%;" v-if="showForm" @submit.prevent="onSubmit">
+        <template  v-for="(question, qIndex) in questions">
+          <h4 style="color:#056895">{{ question.title }}</h4>
+        <b>  <p>{{ question.text }}</p></b>
+          <img style="width:200px; border-radius: 4%;   border: 1px solid #ddd;" :src="question.image" alt="Image"/> <br><br>
           <template v-for="(answer, aIndex) in question.possibleAnswers">
             <label>
-              <input type="radio" v-bind:value="answer.text" v-bind:name="'question-' + question.id"
+              <input  class="form-check-input" type="radio" v-bind:value="answer.text" v-bind:name="'question-' + question.id"
                 v-model="question.selectedAnswer" @change="selectedAnswerIndexes[qIndex]= aIndex+1">
-                {{ aIndex + 1 }}.{{ answer.text }}
-            </label>
+                {{ answer.text }}
+            </label><br>
           </template>
-        </template>
-        <input type="text" id="playerName" v-model="playerName">
-        <button type="submit">Envoyer</button>
+        </template> <br><br><br> Name : <br><br>
+        <input class="form-control" style="size:20px" type="text" id="playerName" v-model="playerName"> <br>
+        <button  class="btn btn-danger"  type="submit">Envoyer</button>
       </form>
     </div>
     <div  v-if="!showForm">
-      <h3>Bonjour {{ playerName }} Votre score est : {{ numCorrect }}</h3>
+      <h3>Bonjour {{ playerName }} Votre score est : {{ numCorrect }}/10</h3>
       <div v-for="scoreEntry in quizInfos.data.scores" v-bind:key="scoreEntry.date">
         <p>Player name : </p>{{ scoreEntry.playerName }} - <p>Score : </p>{{ scoreEntry.score }}
       </div>

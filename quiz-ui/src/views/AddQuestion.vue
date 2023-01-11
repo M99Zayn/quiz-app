@@ -1,72 +1,63 @@
-<template>
-  <nav>
-    <div class="cpnt">
+<template >
+  <nav style="margin:auto">
+    <div>
       <div>
         <label for="title">
           <h5>Title</h5>
         </label>
-        <input type="text" v-model="title" id="title" name="title" placeholder="title">
-        <div v-if="title == ''" class="red">Title can't be empty</div>
+        <input size="50" class="form-control" type="text" v-model="title" id="title" name="title" placeholder="title">
 
         <label for="position">
           <h5>Position</h5>
         </label>
-        <input type="text" v-model="position" id="position" name="position" placeholder="position">
-        <div v-if="position == ''" class="red">Position can't be empty</div>
+        <input class="form-control" type="text" v-model="position" id="position" name="position" placeholder="position">
 
         <label for=" text">
           <h5>Text</h5>
         </label>
-        <input type="text" v-model="text" id="text" name="text" placeholder="text">
-        <div v-if="text == ''" class="red">Text can't be empty</div>
+        <input class="form-control" type="text" v-model="text" id="text" name="text" placeholder="text">
 
         <label for="image">
           <h5>Image</h5>
         </label>
-        <input type="text" v-model="image" id="image" name="image" placeholder="image">
+        <input class="form-control" type="text" v-model="image" id="image" name="image" placeholder="image">
 
         <label for="answers">
           <h5>Answers</h5>
         </label>
-        <div class="table">
-          <div class="button"><input type="submit" value="add answer" v-on:click="addAnswers"></div>
-          <div class="button"><input type="submit" value="remove answer" v-on:click="removeAnswers"></div>
-        </div>
         <div class="table4">
           <div v-for="(answer, index) in answers">
             <div v-if="index + 1 == selected" class="correctAnswers">
               <label for="answer"> Answer: {{ index + 1 }}</label>
-              <input id="answer" type="text" v-model="answer.text" placeholder="text">
+              <input id="answer" class="form-control" type="text" v-model="answer.text" placeholder="text">
             </div>
             <div v-else class="incorrectAnswers">
               <label for="answer"> Answer: {{ index + 1 }}</label>
               <button v-on:click="selectAnswer(index + 1)">Select as correct</button>
-              <input id="answer" type="text" v-model="answer.text" placeholder="text">
+              <input class="form-control" id="answer" type="text" v-model="answer.text" placeholder="text">
+            </div> 
+            <br>
+          </div>
+          <div class="table">
+            <div>
+              <input type="submit" class="btn btn-primary" value="add answer" v-on:click="addAnswers">
+              &nbsp&nbsp&nbsp
+              <input class="btn btn-danger" type="submit" value="remove answer" v-on:click="removeAnswers">
             </div>
-            <div v-if="answer.text == ''" class="red">Answer can't be empty</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="table">
+    <div>
       <div>
-        <div class="button">
-          <input type="submit" value="Cancel" v-on:click="$emit('cancel')">
-        </div>
-      </div>
-      <div>
-        <div class="button">
-          <input type="submit" value="submit" v-on:click="send">
-          <div class="red" v-if="invalidForm">Invalid</div>
-        </div>
+        <input type="submit" class="btn btn-success" value="submit" v-on:click="send">
+        <div class="red" v-if="invalidForm">Invalid</div>
       </div>
     </div>
   </nav>
 
 </template>
-
 <script>
-import QuizApiService from '../services/QuizApiService'
 import axios from "axios";
 export default {
   emits: ['cancel', 'submit'],
