@@ -1,40 +1,26 @@
 <template>
-<div style="margin:50px">
-  <div>
-    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Question</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
- 
-    <tr v-for="question in questions" :key="question.id">
-
-          <router-link :to="{name: 'QuestionPage', params:{id:question.id}}">
-            <td>{{ question.id }}</td> 
-          </router-link>
-    
-  
-            <td>{{ question.text }}</td>
-<tr>
-
-           <td><button class="btn btn-primary" @click="editQuestion(question.id)">Éditer</button></td> &nbsp&nbsp&nbsp
-          <td><button class="btn btn-danger" @click="deleteQuestion(question.id)">Supprimer</button></td>   
-         </tr> 
-         </tr>     
-     
-
-          
-  </tbody>
-</table>
-  
-
-    <button  @click="addQuestion" class="btn btn-success" to="/quiz-page">Créer une question</button>
+  <div style="margin:50px">
+    <div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Question</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="question in questions" :key="question.id">
+            <td>{{ question.id }}</td>
+            <td><router-link :to="{ name: 'QuestionPage', params: { id: question.id } }">{{ question.text }}</router-link></td>          
+            <td><button class="btn btn-primary" @click="editQuestion(question.id)">Éditer</button></td>
+            <td><button class="btn btn-danger" @click="deleteQuestion(question.id)">Supprimer</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <router-link class="btn btn-success" to="/addQuestion">Ajouter une question</router-link>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -53,7 +39,7 @@ export default {
         // set loading to true while the data is being fetched
         loading.value = true
         // fetch the questions from the API
-        const response  = await quizApiService.getQuestions()
+        const response = await quizApiService.getQuestions()
         // extract the data from the response object
         const data = response.data
         // update the questions array with the data from the API
@@ -65,22 +51,13 @@ export default {
         loading.value = false
       }
     }
-    
+
     // call fetchQuestions when the component is created
     fetchQuestions()
-        
+
     function showQuestion(id) {
       // show the question with the specified ID
       router.push(`/questions/${id}`)
-    }
-
-    async function addQuestion() {
-      // add a new question to the table
-      try {
-        this.$router.push('/addQuestion')
-      } catch (error) {
-        console.error(error)
-      }
     }
 
     async function editQuestion(id) {
@@ -109,7 +86,6 @@ export default {
       questions,
       loading,
       fetchQuestions,
-      addQuestion,
       editQuestion,
       deleteQuestion,
       showQuestion

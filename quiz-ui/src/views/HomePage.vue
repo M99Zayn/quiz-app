@@ -3,7 +3,7 @@
   
 
   <div style="margin:auto">
-    <img class="c" style="	height:170px; width: 700px; border-radius: 3%;    margin-bottom: 20px;   margin-top: 20px; " src="https://i.ibb.co/ydjc8mr/quiz.png" alt="Card image cap">
+    <img class="c" style="	height:300px; width: 700px; border-radius: 3%;    margin-bottom: 20px;   margin-top: 20px; " src="https://i.ibb.co/ydjc8mr/quiz.png" alt="Card image cap">
     
     <div class="card" >
   <div class="card-body">

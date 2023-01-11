@@ -42,7 +42,7 @@ export default {
         return ''
     }
   },
-  addQuestion(token, json) {
-    return this.call("post", "questions", json, token);
+  addQuestion(questions, token) {
+    return this.call("post", "questions", questions, token);
   },
 };
