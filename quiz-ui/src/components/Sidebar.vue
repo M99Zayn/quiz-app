@@ -26,7 +26,7 @@
 			<br><br><br><br><br><br><br><br><br><br><br><br><br>
 			<router-link to="/login" class="button">
 				
-				<span class="text">Connection</span>
+				<span class="text">Login</span>
 			</router-link>
 		</div>
 

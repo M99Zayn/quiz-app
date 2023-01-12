@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, make_response
 from jwt_utils import build_token, decode_token,secret
 from flask_cors import CORS
 import os
@@ -31,11 +31,30 @@ class Question():
 		self.possibleAnswers = possibleAnswers
 
 
-
 def get_db_connection():
     connection = sqlite3.connect(currentdirectory + "\quiz.db")
     connection.row_factory = sqlite3.Row
     return connection
+
+@app.route('/rebuild-db', methods=['POST'])
+def build_db():
+	conn = get_db_connection()
+	cursor=conn.cursor()
+	cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+	table_names = cursor.fetchall()
+	for table_name in table_names:
+		if table_name[0] != 'sqlite_sequence':
+			cursor.execute("DROP TABLE {};".format(table_name[0]))
+	
+	cursor.execute('CREATE TABLE "questions" ( "id" INTEGER, "title" TEXT, "text" TEXT, "image" TEXT, "position" TEXT, "possibleAnswers" TEXT, PRIMARY KEY("id" AUTOINCREMENT) )')
+	cursor.execute('CREATE TABLE "participations" ( "id" INTEGER, "playerName" TEXT, "answers" TEXT, "score" INTEGER, PRIMARY KEY("id" AUTOINCREMENT) )')
+	
+	conn.commit()
+	
+	conn.close()
+	response = make_response("Ok")
+	response.status_code = 200
+	return response
 
 @app.route('/quiz-info', methods=['GET'])
 def GetQuizInfo():
@@ -62,11 +81,11 @@ def GetQuestion():
 @app.route('/questions', methods=['POST'])
 def AddQuestion():
 	# Récupérer le token envoyé en paramètre
-	# auth_token = request.headers.get('Authorization')
-	# try:
-	# 	decode_token(auth_token[7:])
-	# except TypeError:
-	# 	return {"message" : "Not authenticated"} ,401
+	auth_token = request.headers.get('Authorization')
+	try:
+		decode_token(auth_token[7:])
+	except TypeError:
+		return {"message" : "Not authenticated"} ,401
 	title = request.json['title']
 	text = request.json['text']
 	image = request.json['image']
