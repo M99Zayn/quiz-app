@@ -1,12 +1,12 @@
 <template>
 	<aside :class="`${is_expanded ? 'is-expanded' : ''}`">
 		<div class="logo">
-			<img :src="logoURL" alt="Vue" /> 
+			<img style="width:100px ; border-radius: 10%; margin-left: 70px; margin-top: 5%;"  src="https://img.freepik.com/premium-vector/quiz-logo-icon-vector-symbol-flat-cartoon-bubble-speech-with-question-signs-as-competition-game_686498-275.jpg?w=2000">
 		</div>
 
 		<div class="menu-toggle-wrap">
 			<button class="menu-toggle" @click="ToggleMenu">
-				<p>>></p>
+				<b><p style="color:aliceblue">>></p></b>
 			</button>
 		</div>
 
@@ -15,7 +15,7 @@
 			<router-link to="/" class="button">
 				
 		
-	<span class="text">     <font-awesome-icon icon="fa-solid fa-user-secret" />Home</span>
+	<span class="text"> Home</span>
 			</router-link>
 			<br>
 			
@@ -23,10 +23,11 @@
 				
 				<span class="text">Admin</span>
 			</router-link>
-			
-
-
-			
+			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<router-link to="/connection" class="button">
+				
+				<span class="text">Connection</span>
+			</router-link>
 		</div>
 
 		<div class="flex"></div>

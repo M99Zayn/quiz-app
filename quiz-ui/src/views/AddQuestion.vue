@@ -33,7 +33,7 @@
             </div>
             <div v-else class="incorrectAnswers">
               <label for="answer"> Answer: {{ index + 1 }}</label>
-              <button v-on:click="selectAnswer(index + 1)">Select as correct</button>
+              &nbsp <button type="button" class="btn btn-info" v-on:click="selectAnswer(index + 1)">Select as correct</button>
               <input class="form-control" id="answer" type="text" v-model="answer.text" placeholder="text">
             </div> 
             <br>
@@ -41,7 +41,7 @@
           <div class="table">
             <div>
               <input type="submit" class="btn btn-primary" value="add answer" v-on:click="addAnswers">
-              &nbsp&nbsp&nbsp
+              &nbsp
               <input class="btn btn-danger" type="submit" value="remove answer" v-on:click="removeAnswers">
             </div>
           </div>

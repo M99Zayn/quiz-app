@@ -1,24 +1,31 @@
 <template>
-  <div class="about" >
+  <div class="about">
     <div style=" margin-top: 2%; margin-bottom: 2%;">
       <form class="form-control" style=" margin-left: 20%;" v-if="showForm" @submit.prevent="onSubmit">
-        <template  v-for="(question, qIndex) in questions">
+        Player name : <br>
+        <input class="form-control" style="size:20px" type="text" id="playerName" v-model="playerName">
+        <template v-for="(question, qIndex) in questions">
           <h4 style="color:#056895">{{ question.title }}</h4>
-        <b>  <p>{{ question.text }}</p></b>
-          <img style="width:200px; border-radius: 4%;   border: 1px solid #ddd;" :src="question.image" alt="Image"/> <br><br>
+          <b>
+            <p>{{ question.text }}</p>
+          </b>
+          <img style="width:200px; border-radius: 4%;   border: 1px solid #ddd;" :src="question.image" alt="Image" />
+          <br><br>
           <template v-for="(answer, aIndex) in question.possibleAnswers">
             <label>
-              <input  class="form-check-input" type="radio" v-bind:value="answer.text" v-bind:name="'question-' + question.id"
-                v-model="question.selectedAnswer" @change="selectedAnswerIndexes[qIndex]= aIndex+1">
-                {{ answer.text }}
+              <input class="form-check-input" type="radio" v-bind:value="answer.text"
+                v-bind:name="'question-' + question.id" v-model="question.selectedAnswer"
+                @change="selectedAnswerIndexes[qIndex] = aIndex + 1">
+              {{ answer.text }}
             </label><br>
           </template>
-        </template> <br><br><br> Name : <br><br>
-        <input class="form-control" style="size:20px" type="text" id="playerName" v-model="playerName"> <br>
-        <button  class="btn btn-danger"  type="submit">Envoyer</button>
+        </template>
+        <br>
+        <br>
+        <button class="btn btn-danger" type="submit">Envoyer</button>
       </form>
     </div>
-    <div  v-if="!showForm">
+    <div v-if="!showForm">
       <h3>Bonjour {{ playerName }} Votre score est : {{ numCorrect }}/10</h3>
       <div v-for="scoreEntry in quizInfos.data.scores" v-bind:key="scoreEntry.date">
         <p>Player name : </p>{{ scoreEntry.playerName }} - <p>Score : </p>{{ scoreEntry.score }}
@@ -38,10 +45,10 @@ export default {
     return {
       showForm: true,
       questions: [],
-      selectedAnswerIndexes : [],
+      selectedAnswerIndexes: [],
       numCorrect: 0,
       playerName: '',
-      quizInfos : {},
+      quizInfos: {},
     }
   },
   created() {
@@ -57,8 +64,8 @@ export default {
     }
     try {
       quizApiService.getQuizInfo().then((data) => {
-      this.quizInfos = data
-    });
+        this.quizInfos = data
+      });
     } catch (error) {
       console.error(error)
     }
@@ -76,15 +83,15 @@ export default {
         this.showForm = false;
       });
       try {
-          // Send the POST request to the Flask server
-          const response = await axios.post('http://127.0.0.1:5000/participations', {
-            playerName: this.playerName,
-            answers: this.selectedAnswerIndexes
-          });
-          console.log(response.data); // Log the response data
-        } catch (error) {
-          console.error(error); // Log the error
-        };  
+        // Send the POST request to the Flask server
+        const response = await axios.post('http://127.0.0.1:5000/participations', {
+          playerName: this.playerName,
+          answers: this.selectedAnswerIndexes
+        });
+        console.log(response.data); // Log the response data
+      } catch (error) {
+        console.error(error); // Log the error
+      };
     },
     goToHome() {
       this.$router.push('/');
