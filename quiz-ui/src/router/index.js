@@ -43,12 +43,14 @@ const router = createRouter({
     {
       path: '/addQuestion',
       name: 'addQuestion',
-      component: AddQuestion
+      component: AddQuestion,
+      beforeEnter: [checkIfLogged], 
     },
     {
       path: '/editQuestion/:id',
       name: 'editQuestion',
-      component: EditQuestion
+      component: EditQuestion,
+      beforeEnter: [checkIfLogged], 
     },
     {
       path: '/login',

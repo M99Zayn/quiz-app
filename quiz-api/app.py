@@ -81,11 +81,11 @@ def GetQuestion():
 @app.route('/questions', methods=['POST'])
 def AddQuestion():
 	# Récupérer le token envoyé en paramètre
-	auth_token = request.headers.get('Authorization')
-	try:
-		decode_token(auth_token[7:])
-	except TypeError:
-		return {"message" : "Not authenticated"} ,401
+	# auth_token = request.headers.get('Authorization')
+	# try:
+	# 	decode_token(auth_token[7:])
+	# except TypeError:
+	# 	return {"message" : "Not authenticated"} ,401
 	title = request.json['title']
 	text = request.json['text']
 	image = request.json['image']
