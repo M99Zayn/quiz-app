@@ -24,7 +24,7 @@
 				<span class="text">Admin</span>
 			</router-link>
 			<br><br><br><br><br><br><br><br><br><br><br><br><br>
-			<router-link to="/connection" class="button">
+			<router-link to="/login" class="button">
 				
 				<span class="text">Connection</span>
 			</router-link>

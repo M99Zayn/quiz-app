@@ -11,7 +11,7 @@ class JwtError(Exception):
         self.message = message
         super().__init__(self.message)
 
-secret = "Super secret key know one will ever know, right ?"
+secret = "74ebc58d13224d0daa4989a8734133ea"
 expiration_in_seconds = 3600
 
 

@@ -13,7 +13,7 @@
           <tr v-for="question in questions" :key="question.id">
             <td>{{ question.id }}</td>
             <td><router-link :to="{ name: 'QuestionPage', params: { id: question.id } }">{{ question.text }}</router-link></td>          
-            <td><button class="btn btn-primary" @click="editQuestion(question.id)">Éditer</button></td>
+            <td><router-link class="btn btn-success" :to="{ name: 'editQuestion', params: { id: question.id } }">Éditer</router-link></td>
             <td><button class="btn btn-danger" @click="deleteQuestion(question.id)">Supprimer</button></td>
           </tr>
         </tbody>

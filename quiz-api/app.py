@@ -9,6 +9,7 @@ from operator import itemgetter
 currentdirectory = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
+app.debug = True
 app.config['SECRET_KEY'] = '74ebc58d13224d0daa4989a8734133ea'
 
 CORS(app)
@@ -16,9 +17,8 @@ CORS(app)
 @app.route('/login', methods=['POST'])
 def login():
     payload = request.get_json()
-    if payload.get('password') == secret :
-        return  {"token" : build_token()} , 200
-
+    if payload.get('password') == 'flask2023':
+        return  jsonify({"token" : 'ghhfhgfghfgh'}), 200
     else:
         return "Unauthorized", 401
 
@@ -73,11 +73,34 @@ def AddQuestion():
 	position = request.json['position']
 	possibleAnswers = json.dumps(request.json['possibleAnswers'])
 	conn = get_db_connection()
-	conn.execute("INSERT INTO questions (title, text, image, position, possibleAnswers) VALUES (?,?,?,?,?)",(title, text, image, position, possibleAnswers))
+	cursor=conn.cursor()
+	cursor.execute("INSERT INTO questions (title, text, image, position, possibleAnswers) VALUES (?,?,?,?,?)",(title, text, image, position, possibleAnswers))
+	id = cursor.lastrowid
 	conn.commit()
-	id = conn.cursor().lastrowid
+	
 	conn.close()
 	return {"id" : id}, 200
+
+@app.route('/questions', methods=['PUT'])
+def UpdateQuestion():
+	# Récupérer le token envoyé en paramètre
+	# auth_token = request.headers.get('Authorization')
+	# try:
+	# 	decode_token(auth_token[7:])
+	# except TypeError:
+	# 	return {"message" : "Not authenticated"} ,401
+	title = request.json['title']
+	text = request.json['text']
+	image = request.json['image']
+	position = request.json['position']
+	possibleAnswers = json.dumps(request.json['possibleAnswers'])
+	conn = get_db_connection()
+	cursor=conn.cursor()
+	cursor.execute("UPDATE questions SET (title, text, image, position, possibleAnswers) VALUES (?,?,?,?,?) WHERE id = ?",(title, text, image, position, possibleAnswers, id))
+	conn.commit()
+	
+	conn.close()
+	return 204
 
 @app.route('/questions', methods=['GET'])
 def getQuestionPosition():
