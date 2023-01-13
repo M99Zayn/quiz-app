@@ -1,17 +1,15 @@
 import jwt
 import datetime
-from werkzeug.exceptions import Unauthorized
-
-
 class JwtError(Exception):
-    """Exception raised for jwt errors in the quiz app 
+    """Exception raised for jwt errors in the quiz app
     """
 
     def __init__(self, message="Jwt error"):
         self.message = message
         super().__init__(self.message)
 
-secret = "74ebc58d13224d0daa4989a8734133ea"
+
+secret = "Super secret key know one will ever know, right ?"
 expiration_in_seconds = 3600
 
 
