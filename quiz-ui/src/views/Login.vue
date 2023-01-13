@@ -1,14 +1,11 @@
 <template>
     <div>
         <h1>
-            Login
+            Admin
         </h1>
         <div class="register">
             <input type="password" v-model="password" placeholder="Enter Password" />
             <button v-on:click="Connect">Login</button>
-            <p>
-                <router-link to="/Admin">Admin</router-link>
-            </p>
         </div>
     </div>
 </template>

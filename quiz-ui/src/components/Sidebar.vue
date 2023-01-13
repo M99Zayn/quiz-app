@@ -24,16 +24,26 @@
 				<span class="text">Admin</span>
 			</router-link>
 			<br><br><br><br><br><br><br><br><br><br><br><br><br>
-			<router-link to="/login" class="button">
-				
-				<span class="text">Login</span>
-			</router-link>
+			<button v-on:click="Logout">Déconnexion</button>
 		</div>
 
 		<div class="flex"></div>
 		
 	</aside>
 </template>
+
+<script>
+
+export default {
+    methods: {
+        async Logout() {
+            localStorage.clear()
+			location.reload()
+        }
+    }
+}
+</script>
+
 
 <script setup>
 import { ref } from 'vue'
