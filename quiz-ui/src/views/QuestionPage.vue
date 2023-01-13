@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <div v-for="q in question" :key="q.id">
-      <h1 class="display-4 mb-4">{{ q.title }}</h1>
-      <p class="lead mb-4">{{ q.text }}</p>
-      <img :src="q.image" alt="Image" class="mb-4">
-      <p class="mb-4">Position: {{ q.position }}</p>
+    <div>
+      <h1 class="display-4 mb-4">{{ question.title }}</h1>
+      <p class="lead mb-4">{{ question.text }}</p>
+      <img :src="question.image" alt="Image" class="mb-4">
+      <p class="mb-4">Position: {{ question.position }}</p>
       <p>Réponse : </p>
       <ul class="list-group">
-        <li v-for="answer in q.possibleAnswers" :key="answer" class="list-group-item">{{ answer.text }}</li>
+        <li v-for="answer in question.possibleAnswers" :key="answer" class="list-group-item">{{ answer.text }}</li>
       </ul>
     </div>
   </div>

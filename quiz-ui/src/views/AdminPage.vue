@@ -27,6 +27,7 @@
 import { useRouter } from 'vue-router'
 import { ref, reactive } from 'vue'
 import quizApiService from "@/services/QuizApiService";
+import axios from "axios";
 
 export default {
   name: 'Admin',
@@ -60,23 +61,12 @@ export default {
       router.push(`/questions/${id}`)
     }
 
-    async function editQuestion(id) {
-      // edit the question with the specified ID
-      try {
-        const response = await quizApiService.updateQuestion(id, updatedQuestion)
-        const index = questions.findIndex(q => q.id === id)
-        questions.splice(index, 1, response.data)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
     async function deleteQuestion(id) {
       // delete the question with the specified ID
       try {
-        await quizApiService.deleteQuestion(id)
-        const index = questions.findIndex(q => q.id === id)
-        questions.splice(index, 1)
+        const response = await axios.delete(`http://127.0.0.1:5000/questions/${id}`,
+        {headers: {Authorization: 'Bearer ' + localStorage.token}});
+        location.reload()
       } catch (error) {
         console.error(error)
       }
@@ -86,7 +76,6 @@ export default {
       questions,
       loading,
       fetchQuestions,
-      editQuestion,
       deleteQuestion,
       showQuestion
     }

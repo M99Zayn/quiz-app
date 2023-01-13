@@ -129,9 +129,9 @@ export default {
         text: String(this.text),
         image: String(this.image),
         possibleAnswers: this.answers
-      });
+      }, {headers: {Authorization: 'Bearer ' + localStorage.token}});
       console.log(response.data);
-      this.$router.push('/');
+      this.$router.push('/admin');
     }
   }
 }

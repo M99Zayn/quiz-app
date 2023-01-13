@@ -208,7 +208,7 @@ def DeleteQuestion(id):
 		message = "Request respond Not Found"
 		return make_response(message, 404)
 	cursor = conn.cursor()
-	cursor.execute("DELETE FROM questions WHERE id = ?", (id))
+	cursor.execute("DELETE FROM questions WHERE id = ?", (id,))
 	
 	response = make_response("Request respond ok")
 	response.status_code = 204

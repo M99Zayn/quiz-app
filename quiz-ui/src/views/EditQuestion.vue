@@ -101,10 +101,12 @@ export default {
           "Content-Type": "application/json;charset=UTF-8",
         },
       }).then(({ data }) => {
-        console.log(data[0].title);
-        vm.title = data[0].title
-        vm.text = data[0].text
-        vm.image = data[0].image
+        console.log(data.title);
+        vm.title = data.title
+        vm.position = data.position
+        vm.text = data.text
+        vm.image = data.image
+        vm.answers = data.possibleAnswers
       });
     },
     selectAnswer(index) {
@@ -149,15 +151,15 @@ export default {
       }
 
       // Send the PUT request to the Flask server
-      const response = await axios.put(`http://127.0.0.1:5000/questions/${this.id}`, {
+      const response = await axios.put(`http://127.0.0.1:5000/questions/${this.$route.params.id}`, {
         position: Number(this.position),
         title: String(this.title),
         text: String(this.text),
         image: String(this.image),
         possibleAnswers: this.answers
-      });
+      }, {headers: {Authorization: 'Bearer ' + localStorage.token}});
       console.log(response.data);
-      this.$router.push('/');
+      this.$router.push('/admin');
     }
   }
 }
