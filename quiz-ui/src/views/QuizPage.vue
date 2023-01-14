@@ -25,12 +25,27 @@
         <button class="btn btn-danger" type="submit">Envoyer</button>
       </form>
     </div>
-    <div v-if="!showForm">
-      <h3>Bonjour {{ playerName }} Votre score est : {{ numCorrect }}/10</h3>
-      <div v-for="scoreEntry in quizInfos.data.scores" v-bind:key="scoreEntry.date">
-        <p>Player name : </p>{{ scoreEntry.playerName }} - <p>Score : </p>{{ scoreEntry.score }}
-      </div>
-      <button @click="goToHome">Home</button>
+    <div style="margin-left:300px" v-if="!showForm" >
+      <h2 style="color:#056895">Bonjour  {{ playerName }} Votre score est : {{ numCorrect }}/10 !</h2>
+      <h4 style="color:green"> Classement actuel  : </h4> <br>
+      <table  class="table table-bordered">
+  <thead>
+    <tr>
+     
+      <th scope="col">Player Name </th>
+      <th scope="col" style="color:red" >Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="scoreEntry in quizInfos.data.scores" v-bind:key="scoreEntry.date">
+
+      <th style="color:#056895" scope="row">{{ scoreEntry.playerName }}</th>
+      <td>{{ scoreEntry.score }}</td>
+    </tr>
+    
+  </tbody>
+</table>
+      <button class="btn btn-primary" @click="goToHome">Home</button>
     </div>
   </div>
 </template>

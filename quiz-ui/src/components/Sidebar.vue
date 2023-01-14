@@ -24,7 +24,7 @@
 				<span class="text">Admin</span>
 			</router-link>
 			<br><br><br><br><br><br><br><br><br><br><br><br><br>
-			<button v-on:click="Logout">Déconnexion</button>
+			&nbsp; &nbsp; <button style="color:aliceblue" v-if="isToken" v-on:click="Logout">Déconnexion</button>
 		</div>
 
 		<div class="flex"></div>
@@ -35,6 +35,11 @@
 <script>
 
 export default {
+	computed: {
+    	isToken() {
+      		return localStorage.token !== undefined
+    	}
+  	},
     methods: {
         async Logout() {
             localStorage.clear()

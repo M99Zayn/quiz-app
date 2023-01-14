@@ -13,7 +13,6 @@ app.debug = True
 
 CORS(app)
 
-
 @app.route('/login', methods=['POST'])
 def login():
     payload = request.get_json()
@@ -21,7 +20,6 @@ def login():
         return {'token': jwt_utils.build_token()}
     else:
         return 'Unauthorized', 401
-
 
 class Question():
 	def init(self, title: str, text, image, position, possibleAnswers):
@@ -31,12 +29,10 @@ class Question():
 		self.position = position
 		self.possibleAnswers = possibleAnswers
 
-
 def get_db_connection():
     connection = sqlite3.connect(currentdirectory + "\quiz.db")
     connection.row_factory = sqlite3.Row
     return connection
-
 
 @app.route('/rebuild-db', methods=['POST'])
 def build_db():
@@ -48,7 +44,8 @@ def build_db():
 		if table_name[0] != 'sqlite_sequence':
 			cursor.execute("DROP TABLE {};".format(table_name[0]))
 
-	cursor.execute('CREATE TABLE "questions" ( "id" INTEGER, "title" TEXT, "text" TEXT, "image" TEXT, "position" TEXT, "possibleAnswers" TEXT, PRIMARY KEY("id" AUTOINCREMENT) )')
+	cursor.execute(
+		'CREATE TABLE "questions" ( "id" INTEGER,"title" TEXT,"text" TEXT,"image" TEXT,"position" INTEGER,"possibleAnswers" TEXT,PRIMARY KEY("id" AUTOINCREMENT))')
 	cursor.execute(
 	    'CREATE TABLE "participations" ( "id" INTEGER, "playerName" TEXT, "answers" TEXT, "score" INTEGER, PRIMARY KEY("id" AUTOINCREMENT) )')
 
